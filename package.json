@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "eject": "^0.0.4",
     "koa": "^2.6.1"
   },
   "devDependencies": {
