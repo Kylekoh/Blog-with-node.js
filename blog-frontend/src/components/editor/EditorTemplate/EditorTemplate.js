@@ -12,7 +12,7 @@ class EditorTemplate extends Component {
 	// separator 클릭 후 마우스를 움직이면 그에 따라 leftPercentage 업데이트
 	handleMouseMove = (e) => {
 		this.setState({
-			leftPercentage: e.clientX / window.innderWidth
+			leftPercentage: e.clientX / window.innerWidth
 		});
 	}
 

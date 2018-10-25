@@ -1,26 +1,18 @@
 import React, { Component } from 'react';
-import styles from './EditorTemplate.scss'
+import styles from './PreviewPane.scss'
 import classNames from 'classnames/bind'
 
 const cx = classNames.bind(styles);
 
-class EditorTemplate extends Component {
-	render() {
-		const { header, editor, preview } = this.props;
-		return (
-			<div className={cx('editor-template')}>
-				{header}
-				<div className={cx('panes')}>
-					<div className={cx('pane', 'editor')}>
-						{editor}
-					</div>
-					<div className={cx('pane', 'preview')}>
-						{preview}
-					</div>
-				</div>
-			</div>
-		)
-	}
-}
+const PreviewPane = ({markdown, title}) => (
+	<div className={cx('preview-pane')}>
+		<h1 className={cx('title')}>
+			제목
+		</h1>
+		<div>
+			내용
+		</div>
+	</div>
+)
 
-export default EditorTemplate;
+export default PreviewPane;

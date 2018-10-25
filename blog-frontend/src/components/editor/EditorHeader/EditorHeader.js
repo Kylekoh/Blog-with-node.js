@@ -1,26 +1,21 @@
 import React, { Component } from 'react';
-import styles from './EditorTemplate.scss'
-import classNames from 'classnames/bind'
+import styles from './EditorHeader.scss';
+import classNames from 'classnames/bind';
+import Button from 'components/common/Button';
 
 const cx = classNames.bind(styles);
 
-class EditorTemplate extends Component {
-	render() {
-		const { header, editor, preview } = this.props;
+const EditorHeader = ({onGoBack, onSubmit}) => {
 		return (
-			<div className={cx('editor-template')}>
-				{header}
-				<div className={cx('panes')}>
-					<div className={cx('pane', 'editor')}>
-						{editor}
-					</div>
-					<div className={cx('pane', 'preview')}>
-						{preview}
-					</div>
+			<div className={cx('editor-header')}>
+				<div className={cx('back')}>
+					<Button onClick={onGoBack} theme="outline">뒤로가기</Button>
 				</div>
+				<div className={cx('submit')}>
+					<Button onClick={onSubmit} theme="outline">작성하기</Button>
+				</div>				
 			</div>
 		)
 	}
-}
 
-export default EditorTemplate;
+export default EditorHeader;
