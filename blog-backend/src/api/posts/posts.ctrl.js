@@ -55,7 +55,12 @@ exports.write = async (ctx) => {
 exports.list = async (ctx) => {
 	// page가 주어지지 않았다면 1로 간주
 	// query는 문자열 형태로 받아오므로 숫자로 변환
-	const page = parseInt(ctx.query.page || 1, 10)
+	const page = parseInt(ctx.query.page || 1, 10);
+	const { tag } = ctx.query;
+
+	const query = tag ? {
+		tags: tag //tags 배열에 tag를 가진 포스트 찾기
+	} : {}
 
 	// 잘못된 페이지가 주여졌다면 오류
 	if(page < 1) {
@@ -64,23 +69,23 @@ exports.list = async (ctx) => {
 	}
 
 	try {
-		const posts = await Post.find()
+		const posts = await Post.find(query)
 								.sort({_id: -1})
 								.limit(10)
 								.skip((page - 1) * 10)
 								.lean()
 								.exec();
-		const postCount = await Post.count().exec();
+		const postCount = await Post.count(query).exec();
 		const limitBodyLength = post => ({
 			...post,
-			body: post.body.length < 200 ? post.body : `${post.body.slice(0,200)}...`
+			body: post.body.length < 350 ? post.body : `${post.body.slice(0,350)}...`
 		});
 		ctx.body = posts.map(limitBodyLength)
 		// 마지막 페이지 알려주기
 		// ctx.set은 response header를 설정
 		ctx.set('Last-Page', Math.ceil(postCount / 10));
 	} catch(e) {
-		ctx.throw(e, 500)
+		ctx.throw(500, e)
 	}
 }
 

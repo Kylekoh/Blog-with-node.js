@@ -41,7 +41,7 @@ class MarkdownRender extends Component {
 	  const { markdown } = props;
 	  // 서버사이드 렌더링에서도 마크다운 처리가 되도록 constructor 쪽에서 구현합니다.
 	  this.state = {
-	  	html : markdown ? marked(props.makrdown, { breaks: true, sanitize: true }) : ''
+	  	html : markdown ? marked(props.markdown, { breaks: true, sanitize: true }) : ''
 	  }
 	}
 
@@ -54,6 +54,10 @@ class MarkdownRender extends Component {
 		if(prevState.html !== this.state.html) {
 			Prism.highlightAll();
 		}
+	}
+
+	componentDidMount() {
+		Prism.highlightAll();
 	}
 
 	render() {
