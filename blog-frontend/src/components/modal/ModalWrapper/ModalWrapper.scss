@@ -12,12 +12,12 @@
 
 @keyframes slideUp {
 	0% { transform: translateY(50vh); }
-	100% { transform: translate(0); }
+	100% { transform: translateY(0); }
 }
 
 @keyframes slideDown {
 	0% { transform: translateY(0); }
-	100% { transform: translate(50vh); }
+	100% { transform: translateY(50vh); }
 }
 
 .gray-background {
@@ -28,6 +28,12 @@
 	right: 0;
 	bottom: 0;
 	z-index: 5;
+	&.enter {
+		animation: fadeIn 0.25s ease-in both;
+	}
+	&.leave {
+		animation: fadeIn 0.25s ease-in both;
+	}
 }
 
 .modal-wrapper {
@@ -39,5 +45,12 @@
 	.modal {
 		@include material-shadow(3, 0.5);
 		background: white;
+	
+		&.enter {
+			animation: slideUp 0.25s ease-in both;
+		}
+		&.leave {
+			animation: slideDown 0.25s ease-in both;
+		}	
 	}
 }
