@@ -11,7 +11,7 @@ import queryString from 'query-string';
 
 class EditorHeaderContainer extends Component {
 
-	componentDIdMount() {
+	componentDidMount() {
 		const { EditorActions, location } = this.props;
 		EditorActions.initialize();
 
