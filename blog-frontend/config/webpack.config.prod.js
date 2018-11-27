@@ -114,7 +114,18 @@ module.exports = {
   // You can exclude the *.map files from the build during deployment.
   devtool: shouldUseSourceMap ? 'source-map' : false,
   // In production, we only want to load the app code.
-  entry: [paths.appIndexJs],
+  entry: {
+    app: paths.appIndexJs,
+    vendor: [
+      'react',
+      'react-dom',
+      'react-router-dom',
+      'redux',
+      'axios',
+      'codemirror',
+      'prismjs'
+    ],
+  },
   output: {
     // The build folder.
     path: paths.appBuild,
@@ -195,8 +206,8 @@ module.exports = {
     // https://twitter.com/wSokra/status/969633336732905474
     // https://medium.com/webpack/webpack-4-code-splitting-chunk-graph-and-the-splitchunks-optimization-be739a861366
     splitChunks: {
-      chunks: 'all',
-      name: false,
+      chunks: "initial",
+      name: "vendor",
     },
     // Keep the runtime chunk seperated to enable long term caching
     // https://twitter.com/wSokra/status/969679223278505985
@@ -423,6 +434,10 @@ module.exports = {
     ],
   },
   plugins: [
+    new webpack.NormalModuleReplacementPlugin(
+      /^pages$/,
+      'pages/index.async.js'
+    ),
     // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin({
       inject: true,
